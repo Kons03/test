@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: project
+  datasource:
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: postgres
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    generate-ddl: true
+    defer-datasource-initialization: false
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            database:
+              action: none
+      hibernate:
+        ddl-auto: create-drop
+        hbm2dll:
+          create_namespaces: true
+        show_sql: false
+        format_sql: true
+        connection:
+          autocommit: false
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        temp:
+          use_jdbc_metadata_defaults: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yml
+    database-change-log-lock-table: databasechangeloglock
+    database-change-log-table: databasechangelog
+
+  cache:
+    jcache:
+      config: classpath:/ehcache.xml
+
+scheduler:
+  interval: 30000
+
+app:
+  client_exchange: clientExchange
+  client_queue: clientQueue
